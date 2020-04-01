@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+	<name>MultipleRaids (Continued)</name>
+  	<packageId>Mlie.MultipleRaids</packageId>
+	<author>MemeTurtle</author>
+	<url>https://github.com/emipa606/MultipleRaids</url>
+	<supportedVersions>
+		<li>1.1</li>
+	</supportedVersions>
+	<modDependencies>
+		<li>
+			<packageId>brrainz.harmony</packageId>
+            <displayName>Harmony</displayName>
+            <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+            <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+		</li>
+		<li>
+			<packageId>UnlimitedHugs.HugsLib</packageId>
+			<displayName>HugsLib</displayName>
+			<steamWorkshopUrl>steam://url/CommunityFilePage/818773962</steamWorkshopUrl>
+			<downloadUrl>https://github.com/UnlimitedHugs/RimworldHugsLib</downloadUrl>
+		</li>
+	</modDependencies>
+	<loadAfter>	
+		<li>brrainz.harmony</li>
+		<li>UnlimitedHugs.HugsLib</li>
+	</loadAfter>
+	<description>Update of MemeTurtles mod for RimWorld 1.1
+https://steamcommunity.com/sharedfiles/filedetails/?id=1206031733
+
+[img]https://raw.githubusercontent.com/emipa606/RimWorld-Wrapper/master/Notice.png[/img]
+
+Support-chat:
+https://invite.gg/mlie
+
+Non-steam version:
+https://github.com/emipa606/MultipleRaids
+	
+--- Original Description ---
+If you feel that fighting one raid at a time is too easy and want some real challenge then this mod is for you. Fight 2, 3 or as many as you like raids at the same time. Show those raiders who owns the land! Or die trying.
+
+Does not affect the frequency of raids or other events.
+
+The mod changes class handler for RaidEnemy incident. 
+
+Spawned raids will have varying tactics and spawn locations.
+The mod should be compatible with existing games and any storyteller, provided this mod is loaded last.
+
+Mod has several variables to adjust:
+1) Extra Raids[0,inf) - defines maximum number of additional raids to spawn. The more raids spawn the fewer points each raid has.
+2) Spawn Threshold[0,100] - chance for the current raid to be spawned. If current raid is not spawned then no more additional raids will spawn. For example, 50% threshold means that you can have 1 extra raid at 50% chance, 2 raids at 25%, 3 raids and 12.5%
+3) Points offset[0, inf) - if more than one raid spawn, raid points are rescaled with this formula: points = points*(1/totalNum + pointsOffset).
+4) Force Desperate[true, false] - removes safety check from faction selection. Allows to have regular raiders and tribesman on extreme dessert/ice maps.
+5) Force Raid Type[true, false] - forces every 3d raid to drop pod in center, every 4th to siege. Faction restrictions apply(tribesmen will never drop or siege).
+6) Random Factions[true, false] - Allows spawned raids to belong to different factions.
+
+-----
+I have added the source code to the download. Feel free to modify and reupload it as long as you reference the original work.</description>
+</ModMetaData>
