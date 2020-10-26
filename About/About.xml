@@ -26,23 +26,37 @@
     <li>brrainz.harmony</li>
     <li>UnlimitedHugs.HugsLib</li>
   </loadAfter>
-  <description>Update of MemeTurtles mod for RimWorld 1.1
+  <description>[img]https://i.imgur.com/WAEzk68.png[/img]
+Update of MemeTurtles mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=1206031733
 
-[img]https://raw.githubusercontent.com/emipa606/RimWorld-Wrapper/master/Notice.png[/img]
+[img]https://i.imgur.com/7Gzt3Rg.png[/img]
 
-Support-chat:
-https://invite.gg/mlie
-
-Non-steam version:
-https://github.com/emipa606/MultipleRaids
+[table]
+	[tr]
+		[td][url=https://invite.gg/Mlie][img]https://i.imgur.com/zdzzBrc.png[/img][/url][/td]
+		[td][url=https://github.com/emipa606/MultipleRaids][img]https://i.imgur.com/kTkpTOE.png[/img][/url][/td]
+	[/tr]
+[/table]
 	
---- Original Description ---
+[img]https://i.imgur.com/NOW7jU1.png[/img]
+
 If you feel that fighting one raid at a time is too easy and want some real challenge then this mod is for you. Fight 2, 3 or as many as you like raids at the same time. Show those raiders who owns the land! Or die trying.
+
 
 Does not affect the frequency of raids or other events.
 
-The mod changes class handler for RaidEnemy incident. 
+
+The mod changes class handler for RaidEnemy incident. The new wrapper class will spawn additional raids with a specified chance:
+
+for (int i = 0; i -gt extraRaids; i++) {
+int spawnChance = rng.Next(1,101);
+
+if (spawnChance -le spawnThreshold) {
+SpawnRaid();
+} else
+break;
+} 
 
 Spawned raids will have varying tactics and spawn locations.
 The mod should be compatible with existing games and any storyteller, provided this mod is loaded last.
