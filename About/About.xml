@@ -30,6 +30,8 @@
 Update of MemeTurtles mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=1206031733
 
+- Replaced the overwrite of the vanilla incident_worker with a harmony patch instead
+
 [img]https://i.imgur.com/7Gzt3Rg.png[/img]
 
 [table]
@@ -47,16 +49,7 @@ If you feel that fighting one raid at a time is too easy and want some real chal
 Does not affect the frequency of raids or other events.
 
 
-The mod changes class handler for RaidEnemy incident. The new wrapper class will spawn additional raids with a specified chance:
-
-for (int i = 0; i < extraRaids; i++) {
-int spawnChance = rng.Next(1,101);
-
-if (spawnChance <= spawnThreshold) {
-SpawnRaid();
-} else
-break;
-} 
+The mod patches the class handler for RaidEnemy incident. 
 
 Spawned raids will have varying tactics and spawn locations.
 The mod should be compatible with existing games and any storyteller, provided this mod is loaded last.
@@ -81,7 +74,5 @@ I have added the source code to the download. Feel free to modify and reupload i
 [*] For best support, please use the Discord-channel for error-reporting.
 [*] Do not report errors by making a discussion-thread, I get no notification of that.
 [*] If you have the solution for a problem, please post it to the GitHub repository.
-[/list]
-</description>
+[/list]</description>
 </ModMetaData>
-
