@@ -1,125 +1,229 @@
-﻿using RimWorld;
-using Verse;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
+﻿using System;
+using System.Reflection;
+using HarmonyLib;
 using HugsLib;
-using HugsLib.Settings;
+using RimWorld;
+using Verse;
 
 namespace MultipleRaids
 {
-    public class IncidentWorker_RaidEnemy_Custom : IncidentWorker_RaidEnemy {
-        // Threshold for spawning an extra raid
-        int spawnThreshold = 50;
+    [StaticConstructorOnStartup]
+    internal class MultipleRaids
+    {
+        static MultipleRaids()
+        {
+            var harmony = new Harmony("Mlie.MultipleRaids");
+            harmony.PatchAll(Assembly.GetExecutingAssembly());
+        }
+    }
+
+    [HarmonyPatch(typeof(IncidentWorker_RaidEnemy), "FactionCanBeGroupSource", typeof(Faction), typeof(Map),
+        typeof(bool))]
+    public static class RimWorld_IncidentWorker_RaidEnemy_FactionCanBeGroupSource
+    {
+        [HarmonyPrefix]
+        public static void IncidentWorker_RaidEnemy_FactionCanBeGroupSource(ref Faction f, ref Map map,
+            ref bool desperate)
+        {
+            var settings = HugsLibController.SettingsManager.GetModSettings("MultipleRaids");
+            var forceDesperate = false;
+            if (settings.ValueExists("forceDesperate"))
+            {
+                bool.TryParse(settings.PeekValue("forceDesperate"), out forceDesperate);
+            }
+
+            if (forceDesperate)
+            {
+                desperate = true;
+            }
+        }
+    }
+
+
+    [HarmonyPatch(typeof(IncidentWorker_RaidEnemy), "TryExecuteWorker", typeof(IncidentParms))]
+    public static class RimWorld_IncidentWorker_RaidEnemy_TryExecuteWorker
+    {
+        private static int lastIncidentTick;
+
+        [HarmonyPostfix]
+        public static void IncidentWorker_RaidEnemy_TryExecuteWorker(ref IncidentParms parms,
+            IncidentWorker_RaidEnemy __instance)
+        {
+            if (__instance.def.defName == "MultipleRaids_RaidEnemy")
+            {
+                return;
+            }
+
+            if (GenTicks.TicksAbs == lastIncidentTick)
+            {
+                return;
+            }
+
+            lastIncidentTick = GenTicks.TicksAbs;
+            var customRaidDef = DefDatabase<IncidentDef>.GetNamedSilentFail("MultipleRaids_RaidEnemy");
+            customRaidDef.Worker.TryExecute(parms);
+        }
+    }
+
+    public class IncidentWorker_RaidEnemy_Custom : IncidentWorker_RaidEnemy
+    {
+        private readonly float minPointsToSpawn = 35f;
 
         // Maximum number of extra raids
-        int extraRaids = 1;
+        private int extraRaids;
 
         // Remove faction environment check
-        bool forceDesperate = false;
-        
+        private bool forceDesperate;
+
         // Force raid type
-        bool forceRaidType = false;
-        
-        // Allow spaning raids from random factions
-        bool randomFactions = false;
-        
+        private bool forceRaidType;
+
         // Static points offset
-        float pointsOffset = 0.35f;
-        
-        float minPointsToSpawn = 35f;
-        
-        protected override bool FactionCanBeGroupSource(Faction f, Map map, bool desperate = false) {
+        private float pointsOffset = 0.35f;
+
+        // Allow spaning raids from random factions
+        private bool randomFactions;
+
+        // Threshold for spawning an extra raid
+        private int spawnThreshold = 50;
+
+        protected override bool FactionCanBeGroupSource(Faction f, Map map, bool desperate = false)
+        {
             return base.FactionCanBeGroupSource(f, map, desperate || forceDesperate);
         }
-        
+
         //This method is used to execute the incident.
-        protected override bool TryExecuteWorker(IncidentParms parms) {
-            
-            if (HugsLibController.SettingsManager.HasSettingsForMod("MultipleRaids")) {
+        protected override bool TryExecuteWorker(IncidentParms parms)
+        {
+            if (HugsLibController.SettingsManager.HasSettingsForMod("MultipleRaids"))
+            {
                 //Verse.Log.Message("Mod has settings");
-                ModSettingsPack settings = HugsLibController.SettingsManager.GetModSettings("MultipleRaids");
-                
+                var settings = HugsLibController.SettingsManager.GetModSettings("MultipleRaids");
+
                 if (settings.ValueExists("forceDesperate"))
-                    Boolean.TryParse(settings.PeekValue("forceDesperate"), out forceDesperate);
-                
+                {
+                    bool.TryParse(settings.PeekValue("forceDesperate"), out forceDesperate);
+                }
+
                 if (settings.ValueExists("forceRaidType"))
-                    Boolean.TryParse(settings.PeekValue("forceRaidType"), out forceRaidType);
-                    
+                {
+                    bool.TryParse(settings.PeekValue("forceRaidType"), out forceRaidType);
+                }
+
                 if (settings.ValueExists("randomFactions"))
-                    Boolean.TryParse(settings.PeekValue("randomFactions"), out randomFactions);
-                
+                {
+                    bool.TryParse(settings.PeekValue("randomFactions"), out randomFactions);
+                }
+
                 if (settings.ValueExists("spawnThreshold"))
-                    spawnThreshold =  Int32.Parse(settings.PeekValue("spawnThreshold"));
-                
+                {
+                    spawnThreshold = int.Parse(settings.PeekValue("spawnThreshold"));
+                }
+
                 if (settings.ValueExists("extraRaids"))
-                    extraRaids =  Int32.Parse(settings.PeekValue("extraRaids"));
-                
+                {
+                    extraRaids = int.Parse(settings.PeekValue("extraRaids"));
+                }
+
                 if (settings.ValueExists("pointsOffset"))
-                    pointsOffset =  float.Parse(settings.PeekValue("pointsOffset"));
-                
+                {
+                    pointsOffset = float.Parse(settings.PeekValue("pointsOffset"));
+                }
+
                 if (pointsOffset < 0)
+                {
                     pointsOffset = 0.35f;
+                }
             }
 
-            //Verse.Log.Message("MultipleRaids. forceDesperate: " + forceDesperate + " spawnThreshold: " + spawnThreshold + " numRaids: " + extraRaids);
-            
-            Random rng = new Random();
-            int totalNum = 1;
-            for (int i = 0; i < extraRaids; i++) {
-                int spawnChance = rng.Next(1,101);
-               // Verse.Log.Error("spawnChance: " + spawnChance + " spawnThreshold: " + spawnThreshold);
-                if (spawnChance <= spawnThreshold) {
+            //Log.Message("MultipleRaids. forceDesperate: " + forceDesperate + " spawnThreshold: " + spawnThreshold +
+            //" numRaids: " + extraRaids);
+
+            var rng = new Random();
+            var totalNum = 0;
+            for (var i = 0; i < extraRaids; i++)
+            {
+                var spawnChance = rng.Next(1, 101);
+                //Log.Message("spawnChance: " + spawnChance + " spawnThreshold: " + spawnThreshold);
+                if (spawnChance <= spawnThreshold)
+                {
                     totalNum += 1;
-                } else
+                }
+                else
+                {
                     break;
+                }
             }
-            
+
+            if (totalNum == 0)
+            {
+                return false;
+            }
+
             parms.faction = null;
             TryResolveRaidFaction(parms);
-            
-            float raidPoints = parms.points;
+
+            var raidPoints = parms.points;
             if (totalNum > 1)
-                raidPoints = parms.points*((float)(1/totalNum) +(float) pointsOffset);
-            
+            {
+                raidPoints = parms.points * ((1 / totalNum) + pointsOffset);
+            }
+
             if (raidPoints < minPointsToSpawn)
+            {
                 raidPoints = minPointsToSpawn;
-            
-            bool retVal = false;
-            for (int i = 1; i <= totalNum; i++) {
-                if (randomFactions) {
+            }
+
+            var retVal = false;
+            for (var i = 1; i <= totalNum; i++)
+            {
+                if (randomFactions)
+                {
                     parms.faction = null;
                     TryResolveRaidFaction(parms);
                 }
-                
+
                 parms.raidStrategy = null;
-                parms.spawnCenter = Verse.IntVec3.Invalid;
+                parms.spawnCenter = IntVec3.Invalid;
                 parms.points = raidPoints;
                 parms.raidArrivalMode = PawnsArrivalModeDefOf.EdgeWalkIn;
 
-                if (forceRaidType) {
-                    if (i % 3 == 0) {
+                if (forceRaidType)
+                {
+                    if (i % 3 == 0)
+                    {
                         // Spawn drop pod
-                        if (parms.faction.def.techLevel >= TechLevel.Spacer && parms.points >= 240f)
+                        if (parms.faction != null && parms.faction.def.techLevel >= TechLevel.Spacer &&
+                            parms.points >= 240f)
+                        {
                             parms.raidArrivalMode = PawnsArrivalModeDefOf.CenterDrop;
-                    } else {
-                        if (i % 4 == 0) {
+                        }
+                    }
+                    else
+                    {
+                        if (i % 4 == 0)
+                        {
                             // Spawn siege
-                            RaidStrategyDef siegeStrategy = DefDatabase<RaidStrategyDef>.GetNamedSilentFail("Siege");
-                            if (siegeStrategy != null && siegeStrategy.Worker.CanUseWith(parms, PawnGroupKindDefOf.Combat)) {
-                                    parms.raidStrategy = siegeStrategy;
+                            var siegeStrategy = DefDatabase<RaidStrategyDef>.GetNamedSilentFail("Siege");
+                            if (siegeStrategy != null &&
+                                siegeStrategy.Worker.CanUseWith(parms, PawnGroupKindDefOf.Combat))
+                            {
+                                parms.raidStrategy = siegeStrategy;
                             }
                         }
                     }
                 }
-                
-                Verse.Log.Message("MultipleRaids. Spawning raid: " + i + " Faction: " + parms.faction.Name + " Points: " + parms.points);
+
+                if (parms.faction != null)
+                {
+                    //Log.Message("MultipleRaids. Spawning raid: " + i + " Faction: " + parms.faction.Name + " Points: " +
+                    //parms.points);
+                }
+
                 retVal |= base.TryExecuteWorker(parms);
             }
-            
+
             return retVal;
         }
-     }
+    }
 }

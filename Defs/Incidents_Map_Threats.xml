@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <IncidentDef>
+    <defName>MultipleRaids_RaidEnemy</defName>
+    <label>enemy raid</label>
+    <targetTags>
+      <li>Map_PlayerHome</li>
+    </targetTags>
+    <workerClass>MultipleRaids.IncidentWorker_RaidEnemy_Custom</workerClass>
+    <baseChance>0</baseChance>
+    <category>ThreatBig</category>
+    <pointsScaleable>true</pointsScaleable>
+    <tale>Raid</tale>
+  </IncidentDef>
+</Defs>
