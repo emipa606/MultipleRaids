@@ -166,7 +166,7 @@ namespace MultipleRaids
             var raidPoints = parms.points;
             if (totalNum > 1)
             {
-                raidPoints = parms.points * ((1 / totalNum) + pointsOffset);
+                raidPoints = parms.points * ((1 / (float) totalNum) + pointsOffset);
             }
 
             if (raidPoints < minPointsToSpawn)
