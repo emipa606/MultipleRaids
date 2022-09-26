@@ -1,23 +1,14 @@
 # MultipleRaids
 
-![Image](https://i.imgur.com/WAEzk68.png)
+![Image](https://i.imgur.com/buuPQel.png)
 
 Update of MemeTurtles mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=1206031733
 
-![Image](https://i.imgur.com/7Gzt3Rg.png)
+![Image](https://i.imgur.com/pufA0kM.png)
 
-
-[table]
-	[tr]
-		[td]https://invite.gg/Mlie]![Image](https://i.imgur.com/zdzzBrc.png)
-[/td]
-		[td]https://github.com/emipa606/MultipleRaids]![Image](https://i.imgur.com/kTkpTOE.png)
-[/td]
-	[/tr]
-[/table]
 	
-![Image](https://i.imgur.com/NOW7jU1.png)
+![Image](https://i.imgur.com/Z4GOv8H.png)
 
 
 If you feel that fighting one raid at a time is too easy and want some real challenge then this mod is for you. Fight 2, 3 or as many as you like raids at the same time. Show those raiders who owns the land! Or die trying.
@@ -43,7 +34,7 @@ Mod has several variables to adjust:
 I have added the source code to the download. Feel free to modify and reupload it as long as you reference the original work.
 
 
-![Image](https://i.imgur.com/Rs6T6cr.png)
+![Image](https://i.imgur.com/PwoNOj4.png)
 
 
 
@@ -53,5 +44,7 @@ I have added the source code to the download. Feel free to modify and reupload i
 -  For best support, please use the Discord-channel for error-reporting.
 -  Do not report errors by making a discussion-thread, I get no notification of that.
 -  If you have the solution for a problem, please post it to the GitHub repository.
+
+
 
 

@@ -1,34 +1,30 @@
-﻿using HugsLib;
-using HugsLib.Settings;
+﻿using Verse;
 
-namespace MultipleRaids
+namespace MultipleRaids;
+
+/// <summary>
+///     Definition of the settings for the mod
+/// </summary>
+internal class MultipleRaidsSettings : ModSettings
 {
-    public class MultipleRaidsSettings : ModBase
+    public int ExtraRaids = 1;
+    public bool ForceDesperate;
+    public bool ForceRaidType;
+    public float PointsOffset = 0.35f;
+    public bool RandomFactions;
+    public float SpawnThreshold = 0.5f;
+
+    /// <summary>
+    ///     Saving and loading the values
+    /// </summary>
+    public override void ExposeData()
     {
-        private SettingHandle<int> extraRaids;
-
-        private SettingHandle<bool> forceDesperate;
-        private SettingHandle<bool> forceRaidType;
-        private SettingHandle<float> pointsOffset;
-        private SettingHandle<bool> randomFactions;
-        private SettingHandle<int> spawnThreshold;
-
-        public override string ModIdentifier => "MultipleRaids";
-
-        public override void DefsLoaded()
-        {
-            forceDesperate = Settings.GetHandle<bool>("forceDesperate", "Force Desperate",
-                "Enables spawning of regular enemies on hard environment maps.");
-            forceRaidType = Settings.GetHandle<bool>("forceRaidType", "Force Raid Type",
-                "Forces every 3d raid to drop pod in center, every 4th to siege. Faction restrictions apply.");
-            randomFactions = Settings.GetHandle<bool>("randomFactions", "Random Factions",
-                "Allows spawned raids to belong to different factions");
-            spawnThreshold = Settings.GetHandle("spawnThreshold", "Spawn Threshold",
-                "Determines chance for an extra raid to spawn.", 50);
-            extraRaids = Settings.GetHandle("extraRaids", "Extra Raids", "Maximum number of additional raids.", 1);
-            pointsOffset = Settings.GetHandle("pointsOffset", "Points offset",
-                "If more than one raid spawn, raid points are rescaled with this formula: points = points*(1/totalNum + pointsOffset).",
-                0.35f);
-        }
+        base.ExposeData();
+        Scribe_Values.Look(ref ForceDesperate, "ForceDesperate");
+        Scribe_Values.Look(ref ForceRaidType, "ForceRaidType");
+        Scribe_Values.Look(ref RandomFactions, "RandomFactions");
+        Scribe_Values.Look(ref SpawnThreshold, "SpawnThreshold", 0.5f);
+        Scribe_Values.Look(ref ExtraRaids, "ExtraRaids", 1);
+        Scribe_Values.Look(ref PointsOffset, "PointsOffset", 0.35f);
     }
 }

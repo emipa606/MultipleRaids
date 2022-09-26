@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MR.ForceDesperate>Force Desperate</MR.ForceDesperate>
+  <MR.ForceDesperate.Tooltip>Enables spawning of regular enemies on hard environment maps.</MR.ForceDesperate.Tooltip>
+  <MR.ForceRaidType>Force Raid Type</MR.ForceRaidType>
+  <MR.ForceRaidType.Tooltip>Forces every 3d raid to drop pod in center, every 4th to siege. Faction restrictions apply.</MR.ForceRaidType.Tooltip>
+  <MR.RandomFactions>Random Factions</MR.RandomFactions>
+  <MR.RandomFactions.Tooltip>Allows spawned raids to belong to different factions</MR.RandomFactions.Tooltip>
+  <MR.SpawnThreshold>Spawn Threshold: {0}</MR.SpawnThreshold>
+  <MR.SpawnThreshold.Tooltip>Determines chance for an extra raid to spawn.</MR.SpawnThreshold.Tooltip>
+  <MR.ExtraRaids>Extra Raids: {0}</MR.ExtraRaids>
+  <MR.ExtraRaids.Tooltip>Maximum number of additional raids.</MR.ExtraRaids.Tooltip>
+  <MR.PointsOffset>Points Offset: {0}</MR.PointsOffset>
+  <MR.PointsOffset.Tooltip>If more than one raid spawn, raid points are rescaled with this formula: points = points*(1/totalNum + pointsOffset).</MR.PointsOffset.Tooltip>
+</LanguageData>
