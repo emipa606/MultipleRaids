@@ -5,6 +5,8 @@
 Update of MemeTurtles mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=1206031733
 
+- Migrated from old HugsLib settings, opened the settings for translations
+
 ![Image](https://i.imgur.com/pufA0kM.png)
 
 	

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Mlie;
+using UnityEngine;
 using Verse;
 
 namespace MultipleRaids;
@@ -10,6 +11,8 @@ internal class MultipleRaidsMod : Mod
     ///     The instance of the settings to be read by the mod
     /// </summary>
     public static MultipleRaidsMod instance;
+
+    private static string currentVersion;
 
     /// <summary>
     ///     The private settings
@@ -23,6 +26,8 @@ internal class MultipleRaidsMod : Mod
     public MultipleRaidsMod(ModContentPack content) : base(content)
     {
         instance = this;
+        currentVersion =
+            VersionFromManifest.GetVersionFromModMetaData(ModLister.GetActiveModWithIdentifier("Mlie.MultipleRaids"));
     }
 
     /// <summary>
@@ -83,6 +88,13 @@ internal class MultipleRaidsMod : Mod
         listing_Standard.Gap();
         listing_Standard.Label("MR.ExtraRaids".Translate(Settings.ExtraRaids), -1, "MR.ExtraRaids.Tooltip".Translate());
         listing_Standard.IntAdjuster(ref Settings.ExtraRaids, 1, 1);
+        if (currentVersion != null)
+        {
+            listing_Standard.Gap();
+            GUI.contentColor = Color.gray;
+            listing_Standard.Label("MR.CurrentModVersion".Translate(currentVersion));
+            GUI.contentColor = Color.white;
+        }
 
         listing_Standard.End();
     }

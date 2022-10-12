@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
+  <MR.CurrentModVersion>Installed mod-version: {0}</MR.CurrentModVersion>
   <MR.ForceDesperate>Force Desperate</MR.ForceDesperate>
   <MR.ForceDesperate.Tooltip>Enables spawning of regular enemies on hard environment maps.</MR.ForceDesperate.Tooltip>
   <MR.ForceRaidType>Force Raid Type</MR.ForceRaidType>
