@@ -5,25 +5,21 @@ namespace MultipleRaids;
 
 public class IncidentWorker_RaidEnemy_Custom : IncidentWorker_RaidEnemy
 {
-    private readonly float minPointsToSpawn = 35f;
+    private const float minPointsToSpawn = 35f;
 
-    protected override bool FactionCanBeGroupSource(Faction f, Map map, bool desperate = false)
+    public override bool FactionCanBeGroupSource(Faction f, IncidentParms parms, bool desperate = false)
     {
-        return base.FactionCanBeGroupSource(f, map, desperate || MultipleRaidsMod.instance.Settings.ForceDesperate);
+        return base.FactionCanBeGroupSource(f, parms, desperate || MultipleRaidsMod.Instance.Settings.ForceDesperate);
     }
 
     //This method is used to execute the incident.
     protected override bool TryExecuteWorker(IncidentParms parms)
     {
-        //Log.Message("MultipleRaids. forceDesperate: " + forceDesperate + " spawnThreshold: " + spawnThreshold +
-        //" numRaids: " + extraRaids);
-
         var totalNum = 0;
-        for (var i = 0; i < MultipleRaidsMod.instance.Settings.ExtraRaids; i++)
+        for (var i = 0; i < MultipleRaidsMod.Instance.Settings.ExtraRaids; i++)
         {
             var spawnChance = Rand.Value;
-            //Log.Message("spawnChance: " + spawnChance + " spawnThreshold: " + spawnThreshold);
-            if (spawnChance <= MultipleRaidsMod.instance.Settings.SpawnThreshold)
+            if (spawnChance <= MultipleRaidsMod.Instance.Settings.SpawnThreshold)
             {
                 totalNum += 1;
             }
@@ -44,7 +40,7 @@ public class IncidentWorker_RaidEnemy_Custom : IncidentWorker_RaidEnemy
         var raidPoints = parms.points;
         if (totalNum > 1)
         {
-            raidPoints = parms.points * ((1 / (float)totalNum) + MultipleRaidsMod.instance.Settings.PointsOffset);
+            raidPoints = parms.points * ((1 / (float)totalNum) + MultipleRaidsMod.Instance.Settings.PointsOffset);
         }
 
         if (raidPoints < minPointsToSpawn)
@@ -55,7 +51,7 @@ public class IncidentWorker_RaidEnemy_Custom : IncidentWorker_RaidEnemy
         var retVal = false;
         for (var i = 1; i <= totalNum; i++)
         {
-            if (MultipleRaidsMod.instance.Settings.RandomFactions)
+            if (MultipleRaidsMod.Instance.Settings.RandomFactions)
             {
                 parms.faction = null;
                 TryResolveRaidFaction(parms);
@@ -66,7 +62,7 @@ public class IncidentWorker_RaidEnemy_Custom : IncidentWorker_RaidEnemy
             parms.points = raidPoints;
             parms.raidArrivalMode = PawnsArrivalModeDefOf.EdgeWalkIn;
 
-            if (MultipleRaidsMod.instance.Settings.ForceRaidType)
+            if (MultipleRaidsMod.Instance.Settings.ForceRaidType)
             {
                 if (i % 3 == 0)
                 {
@@ -90,12 +86,6 @@ public class IncidentWorker_RaidEnemy_Custom : IncidentWorker_RaidEnemy
                         }
                     }
                 }
-            }
-
-            if (parms.faction != null)
-            {
-                //Log.Message("MultipleRaids. Spawning raid: " + i + " Faction: " + parms.faction.Name + " Points: " +
-                //parms.points);
             }
 
             retVal |= base.TryExecuteWorker(parms);

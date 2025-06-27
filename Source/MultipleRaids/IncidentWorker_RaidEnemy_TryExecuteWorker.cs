@@ -5,12 +5,11 @@ using Verse;
 namespace MultipleRaids;
 
 [HarmonyPatch(typeof(IncidentWorker_RaidEnemy), "TryExecuteWorker", typeof(IncidentParms))]
-public static class RimWorld_IncidentWorker_RaidEnemy_TryExecuteWorker
+public static class IncidentWorker_RaidEnemy_TryExecuteWorker
 {
     private static int lastIncidentTick;
 
-    [HarmonyPostfix]
-    public static void IncidentWorker_RaidEnemy_TryExecuteWorker(ref IncidentParms parms,
+    public static void Postfix(ref IncidentParms parms,
         IncidentWorker_RaidEnemy __instance)
     {
         if (__instance.def.defName == "MultipleRaids_RaidEnemy")

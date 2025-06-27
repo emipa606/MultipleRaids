@@ -10,7 +10,7 @@ internal class MultipleRaidsMod : Mod
     /// <summary>
     ///     The instance of the settings to be read by the mod
     /// </summary>
-    public static MultipleRaidsMod instance;
+    public static MultipleRaidsMod Instance;
 
     private static string currentVersion;
 
@@ -25,7 +25,7 @@ internal class MultipleRaidsMod : Mod
     /// <param name="content"></param>
     public MultipleRaidsMod(ModContentPack content) : base(content)
     {
-        instance = this;
+        Instance = this;
         currentVersion =
             VersionFromManifest.GetVersionFromModMetaData(content.ModMetaData);
     }
@@ -37,14 +37,10 @@ internal class MultipleRaidsMod : Mod
     {
         get
         {
-            if (settings == null)
-            {
-                settings = GetSettings<MultipleRaidsSettings>();
-            }
+            settings ??= GetSettings<MultipleRaidsSettings>();
 
             return settings;
         }
-        set => settings = value;
     }
 
     /// <summary>

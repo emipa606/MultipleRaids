@@ -11,8 +11,7 @@ internal class MultipleRaids
 {
     static MultipleRaids()
     {
-        var harmony = new Harmony("Mlie.MultipleRaids");
-        harmony.PatchAll(Assembly.GetExecutingAssembly());
+        new Harmony("Mlie.MultipleRaids").PatchAll(Assembly.GetExecutingAssembly());
         var hugsLibConfig = Path.Combine(GenFilePaths.SaveDataFolderPath, Path.Combine("HugsLib", "ModSettings.xml"));
         if (!new FileInfo(hugsLibConfig).Exists)
         {
@@ -31,32 +30,32 @@ internal class MultipleRaids
         {
             if (modSetting.Name == "forceDesperate")
             {
-                MultipleRaidsMod.instance.Settings.ForceDesperate = bool.Parse(modSetting.Value);
+                MultipleRaidsMod.Instance.Settings.ForceDesperate = bool.Parse(modSetting.Value);
             }
 
             if (modSetting.Name == "forceRaidType")
             {
-                MultipleRaidsMod.instance.Settings.ForceRaidType = bool.Parse(modSetting.Value);
+                MultipleRaidsMod.Instance.Settings.ForceRaidType = bool.Parse(modSetting.Value);
             }
 
             if (modSetting.Name == "randomFactions")
             {
-                MultipleRaidsMod.instance.Settings.RandomFactions = bool.Parse(modSetting.Value);
+                MultipleRaidsMod.Instance.Settings.RandomFactions = bool.Parse(modSetting.Value);
             }
 
             if (modSetting.Name == "spawnThreshold")
             {
-                MultipleRaidsMod.instance.Settings.SpawnThreshold = int.Parse(modSetting.Value) / 100f;
+                MultipleRaidsMod.Instance.Settings.SpawnThreshold = int.Parse(modSetting.Value) / 100f;
             }
 
             if (modSetting.Name == "extraRaids")
             {
-                MultipleRaidsMod.instance.Settings.ExtraRaids = int.Parse(modSetting.Value);
+                MultipleRaidsMod.Instance.Settings.ExtraRaids = int.Parse(modSetting.Value);
             }
 
             if (modSetting.Name == "pointsOffset")
             {
-                MultipleRaidsMod.instance.Settings.PointsOffset = float.Parse(modSetting.Value);
+                MultipleRaidsMod.Instance.Settings.PointsOffset = float.Parse(modSetting.Value);
             }
         }
 
