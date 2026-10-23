@@ -15,11 +15,6 @@ internal class MultipleRaidsMod : Mod
     private static string currentVersion;
 
     /// <summary>
-    ///     The private settings
-    /// </summary>
-    private MultipleRaidsSettings settings;
-
-    /// <summary>
     ///     Constructor
     /// </summary>
     /// <param name="content"></param>
@@ -37,9 +32,9 @@ internal class MultipleRaidsMod : Mod
     {
         get
         {
-            settings ??= GetSettings<MultipleRaidsSettings>();
+            field ??= GetSettings<MultipleRaidsSettings>();
 
-            return settings;
+            return field;
         }
     }
 

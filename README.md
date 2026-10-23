@@ -1,15 +1,15 @@
 # [MultipleRaids (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=2043857349)
 
-![Image](https://i.imgur.com/buuPQel.png)
+![Image](https://img.litet.net/logos/Info.png)
 
 Update of MemeTurtles mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=1206031733
 
 - Migrated from old HugsLib settings, opened the settings for translations
 
-![Image](https://i.imgur.com/pufA0kM.png)
+![Image](https://img.litet.net/logos/Notice.png)
 	
-![Image](https://i.imgur.com/Z4GOv8H.png)
+![Image](https://img.litet.net/logos/OriginalDescription.png)
 
 If you feel that fighting one raid at a time is too easy and want some real challenge then this mod is for you. Fight 2, 3 or as many as you like raids at the same time. Show those raiders who owns the land! Or die trying.
 
@@ -34,13 +34,13 @@ Mod has several variables to adjust:
 I have added the source code to the download. Feel free to modify and reupload it as long as you reference the original work.
 
 
-![Image](https://i.imgur.com/PwoNOj4.png)
+![Image](https://img.litet.net/logos/ReportingIssues.png)
 
 
 
 -  See if the the error persists if you just have this mod and its requirements active.
 -  If not, try adding your other mods until it happens again.
--  Post your error-log using [HugsLib](https://steamcommunity.com/workshop/filedetails/?id=818773962) or the standalone [Uploader](https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404) and command Ctrl+F12
+-  Always post your log using the [Log Uploader](https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404)
 -  For best support, please use the Discord-channel for error-reporting.
 -  Do not report errors by making a discussion-thread, I get no notification of that.
 -  If you have the solution for a problem, please post it to the GitHub repository.
@@ -48,4 +48,4 @@ I have added the source code to the download. Feel free to modify and reupload i
 
  
 
-[![Image](https://img.shields.io/github/v/release/emipa606/MultipleRaids?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/2043857349) | tags:  challenge
+[![Image](https://img.shields.io/github/v/release/emipa606/MultipleRaids?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/2043857349) | 1.6, Mod, 1.5, 1.2, 1.3, 1.4, 1.1

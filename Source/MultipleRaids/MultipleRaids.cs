@@ -7,7 +7,7 @@ using Verse;
 namespace MultipleRaids;
 
 [StaticConstructorOnStartup]
-internal class MultipleRaids
+internal static class MultipleRaids
 {
     static MultipleRaids()
     {
@@ -59,7 +59,7 @@ internal class MultipleRaids
             }
         }
 
-        xml.Root.Element("MultipleRaids")?.Remove();
+        xml.Root?.Element("MultipleRaids")?.Remove();
         xml.Save(hugsLibConfig);
 
         Log.Message("[MultipleRaids]: Imported old HugLib-settings");
